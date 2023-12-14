@@ -1,0 +1,136 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(215, 250, 221);
+    margin: 0;
+    padding: 0;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 300px auto;
+    background-color: rgb(147, 211, 152);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+}
+
+.btn-home {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    text-decoration: none;
+}
+
+.form-field {
+    margin-bottom: 20px;
+}
+
+.form-field label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-field input[type="text"],
+.form-field input[type="password"] {
+    width: 95%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+#button,
+.back {
+    border: none;
+    color: greenyellow;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+#button:hover,
+.back:hover {
+    background-color: #04AA6D;
+    color: white;
+}
+
+.googleSignin {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.googleSignin:hover {
+    background-color: #357AE8;
+}
+
+.text-login {
+    text-align: center;
+}
+
+.inputEmail {
+    width: 95%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    text-align: center;
+
+}
+.inputPassword{
+    width: 95%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    text-align: center;
+
+}
+.bottom-text {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.pgBreak{
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.login{
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}

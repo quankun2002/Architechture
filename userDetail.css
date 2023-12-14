@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(215, 250, 221);
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+#name {
+    text-align: center;
+}
+
+#image {
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 50%;
+}
+
+.logout {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+    background-color: #4285F4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    text-decoration: none;
+}
+
+.logout:hover {
+    background-color: #357AE8;
+}
+
+.btm-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
