@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: rgb(215, 250, 221);
+    background-color: rgb(220, 196, 221);
     margin: 0;
     padding: 0;
 }
@@ -24,7 +24,7 @@ h1 {
     text-align: center;
     font-size: 14px;
     margin-top: 20px;
-    background-color: #4285F4;
+    background-color: #dd00fa;
     color: white;
     border: none;
     padding: 10px 20px;
