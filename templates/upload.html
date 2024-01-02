@@ -20,23 +20,27 @@
 
       <div class="preview">
         <div>
-          <!-- <img src="images/placeholder-image.png" alt="" class="preview-image" /> -->
+           <img src="{{ url_for('static', filename='assets/img/about/1.jpg') }}" alt="" class="preview-image" /> 
         </div>
         <p> <span class="preview-description">File Name.extension</span> - <span class="preview-size">File Size</span></p>
       </div>
 
       <div class="button_section">
-        <div class="button_group">
-          <label for="input1"
-            >Upload file &nbsp; <i class="fa fa-upload"></i
-          ></label>
-          <input type="file" name="" id="input1" accept=".doc, .docx"/>
-        </div>
-
-        <button class="clear_button"><span>Clear</span><i class="fa fa-trash"></i></button>
+        <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" id="uploadForm">
+          <div class="button_group">
+            <label for="input1"
+              >Upload file &nbsp; <i class="fa fa-upload"></i
+            ></label>
+            <input type="file" name="file" id="input1" accept=".doc, .docx"/>
+          </div>
+        </form>
       </div>
     </div>
-
+      <button class="clear_button"><span>Clear</span><i class="fa fa-trash"></i></button>
     <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+    <script>
+      var imageUrl = "{{ url_for('static', filename='assets/img/about/1.jpg') }}";
+      var imageUrl2 = "{{ url_for('static', filename='assets/img/about/2.jpg') }}";
+  </script>
   </body>
 </html>
