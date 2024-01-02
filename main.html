@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html>
-<link rel="stylesheet" type="text/css" href="main.css" />
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-storage.js"></script>
 </head>
 
 <body>
@@ -12,18 +15,22 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="login.html">Log In</a></li>
                 <li><a href="userDetail.html">Profile</a></li>
-            </ul>  
+            </ul>
         </nav>
     </header>
-    <div class = "container">
-        
+    <div class="container">
+        <div class="drop-zone">
+            <span class="drop-zone__prompt">Drop file here or click to upload</span>
+            <!-- Added id attribute to the file input for easy reference -->
+            <input type="file" name="myFile" class="drop-zone__input" id="fileInput">
+        </div>
+        <div class="upload">
+            <div class="upload__files"></div>
+            <!-- Added id attribute to the "Upload" button for eeeeasy reference -->
+            <button class="upload__submit" id="uploadButton">Upload</button>
+            <button class="see_files" onClick="check_firebase()">Database</button>
+        </div>
     </div>
-    <!-- <div class="sidebar">
-        <a class="active" href="#home">Home</a>
-        <a href="#news">Headphone</a>
-        <a href="login.html">Log In</a>
-        <a href="account.html">Account</a>
-    </div> -->
+    <script src="firebase.js"></script>
 </body>
-<!--  -->
 </html>
