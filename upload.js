@@ -82,52 +82,52 @@ function updateThumbnail(dropZoneElement, file) {
 }
 
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-// Initialize Firebase (replace with your Firebase project config)
-const firebaseConfig = {
-  apiKey: "AIzaSyALDPT2S_RWrvdyUYtrEwDNYSmcGS58QZw",
-  authDomain: "uploadjs-7f8e6.firebaseapp.com",
-  projectId: "uploadjs-7f8e6",
-  storageBucket: "uploadjs-7f8e6.appspot.com",
-  messagingSenderId: "649973015933",
-  appId: "1:649973015933:web:783739943a9ce69f1ad814",
-  measurementId: "G-L9S68T325S"
-};
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+// import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+// const app = initializeApp(firebaseConfig);
+// const analytics = getAnalytics(app);
+// // Initialize Firebase (replace with your Firebase project config)
+// const firebaseConfig = {
+//   apiKey: "AIzaSyALDPT2S_RWrvdyUYtrEwDNYSmcGS58QZw",
+//   authDomain: "uploadjs-7f8e6.firebaseapp.com",
+//   projectId: "uploadjs-7f8e6",
+//   storageBucket: "uploadjs-7f8e6.appspot.com",
+//   messagingSenderId: "649973015933",
+//   appId: "1:649973015933:web:783739943a9ce69f1ad814",
+//   measurementId: "G-L9S68T325S"
+// };
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
-// Reference to the Firebase Storage
-const storage = firebase.storage();
-const storageRef = storage.ref();
+// // Reference to the Firebase Storage
+// const storage = firebase.storage();
+// const storageRef = storage.ref();
 
-// Event listener for the "Upload" button
-document.getElementById('uploadButton').addEventListener('click', uploadToFirebase);
+// // Event listener for the "Upload" button
+// document.getElementById('uploadButton').addEventListener('click', uploadToFirebase);
 
-// Function to handle file upload to Firebase Storage
-function uploadToFirebase() {
-  const fileInput = document.getElementById('fileInput');
-  const file = fileInput.files[0];
+// // Function to handle file upload to Firebase Storage
+// function uploadToFirebase() {
+//   const fileInput = document.getElementById('fileInput');
+//   const file = fileInput.files[0];
 
-  if (file) {
-    // Create a reference to the file in Firebase Storage
-    const fileRef = storageRef.child(file.name);
+//   if (file) {
+//     // Create a reference to the file in Firebase Storage
+//     const fileRef = storageRef.child(file.name);
 
-    // Upload file to Firebase Storage
-    fileRef.put(file).then((snapshot) => {
-      console.log('File uploaded successfully!');
-    }).catch((error) => {
-      console.error('Error uploading file:', error);
-    });
-  } else {
-    console.error('No file selected for upload.');
-  }
-}
+//     // Upload file to Firebase Storage
+//     fileRef.put(file).then((snapshot) => {
+//       console.log('File uploaded successfully!');
+//     }).catch((error) => {
+//       console.error('Error uploading file:', error);
+//     });
+//   } else {
+//     console.error('No file selected for upload.');
+//   }
+// }
 
-// Function to check Firebase (you can implement your logic here)
-function check_firebase() {
-  console.log('Checking Firebase...');
-  // Your logic for checking Firebase, e.g., fetching data from Firebase Database
-}
+// // Function to check Firebase (you can implement your logic here)
+// function check_firebase() {
+//   console.log('Checking Firebase...');
+//   // Your logic for checking Firebase, e.g., fetching data from Firebase Database
+// }

@@ -78,24 +78,6 @@ body {
     text-align: center;
 }
 
-.inputEmail {
-    width: 95%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    text-align: center;
-
-}
-.inputPassword{
-    width: 95%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 14px;
-    text-align: center;
-
-}
 .bottom-text {
     text-align: center;
     font-size: 14px;
@@ -114,4 +96,13 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition-duration: 0.4s;
+}
+.pgBreak{
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
