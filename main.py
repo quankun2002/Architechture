@@ -5,9 +5,6 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = r'temp'  # replace with your upload directory
 @app.route('/')
-
-
-
 def main():
    return render_template('index.html')
 @app.route('/login')

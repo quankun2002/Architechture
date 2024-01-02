@@ -49,4 +49,5 @@ clearButton.addEventListener("click", (e) => {
   previewSize.textContent = "";
 
   clearButton.style.display = "none";
+  location.reload();
 });
