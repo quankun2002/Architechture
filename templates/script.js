@@ -18,7 +18,7 @@ function signInGoogle() {
     client_id:
       "33229960992-elv2jgnpqp12ohiolkiupd9fvpd2knt5.apps.googleusercontent.com", // Replace this value with the Client ID from the API Console
     redirect_uri:
-      "http://127.0.0.1:5500/userDetail.html", // Replace this value with the redirect URI from the API Console
+      "http://127.0.0.1:5501/userDetail.html", // Replace this value with the redirect URI from the API Console
     response_type: "token",
     scope: "https://www.googleapis.com/auth/userinfo.profile",
     include_granted_scopes: "true",
