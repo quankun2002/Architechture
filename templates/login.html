@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <link rel="stylesheet" type="text/css" href="login.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 
 <body>
@@ -28,12 +28,12 @@
         </div>
 
         <div class="bottom-text">
-            <a class="btn-home" href="main.html">
+            <a class="btn-home" href="{{ url_for('main') }}">
                 Back to Home
             </a>
         </div>
     </form>
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 
 </html>
