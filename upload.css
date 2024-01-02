@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=KoHo:wght@200;300;400;500;600;700&display=swap');
+
+body{
+    font-family: 'KoHo','Times New Roman', Times, serif;
+    padding: 40px 0px;
+}
+
+
+.app{
+    max-width: 1000px;
+    margin: auto;
+    border: 2px solid #eeeeee;
+    padding: 20px;
+}
+
+.heading{
+    text-align: center;
+    margin-bottom: 10px;
+}
+.heading h1, .heading p{
+    margin: 0px;
+}
+
+.heading h1{
+    font-size: 1.8rem;
+    margin-bottom:5px;
+}
+
+.preview{
+    margin: auto;
+    text-align: center;
+}
+
+.preview img{
+    width: 450px;
+    height: auto;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.button_section{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_group input{
+    display: none;
+}
+
+.button_group label, .clear_button{
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: block;
+    color: #fff;
+    padding: 10px 30px;
+    border-radius: 5px;
+    margin: 10px 0px;
+    transition: all 0.3s ease;
+}
+
+.clear_button{
+    background-color: #d41a1a;
+    border: 0;
+    display: none;
+    gap: 10px;
+    align-items: center;
+}
+
+.clear_button:hover{
+    background-color: #9e1616;
+}
+
+.button_group label{
+    background-color: #1e2350;
+}
+
+.button_group label:hover{
+    background-color: #11142e;
+}
