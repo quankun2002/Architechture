@@ -20,20 +20,15 @@
             </button>
         </div>
 
-        <fb:login-button class="facebookSignin" 
-        scope="public_profile,email" onlogin="checkLoginState();">
-        </fb:login-button>
-        
-        <div id="status">
-        </div>
-
         <div class="bottom-text">
             <a class="btn-home" href="{{ url_for('main') }}">
                 Back to Home
             </a>
         </div>
     </form>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}">
+    </script>
+    
 </body>
 
 </html>
