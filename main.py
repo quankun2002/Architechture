@@ -111,8 +111,8 @@ def upload():
 
                 # Replace original paragraphs with corrected paragraphs
                 for i, (original, corrected) in enumerate(zip(all_text, corrected_paragraphs), start=1):
-                    word_replacer.replace_in_paragraph(original, corrected)
-                    word_replacer.replace_in_table(original, corrected)
+                    word_replacer.replace_in_paragraph(original, corrected.strip())
+                    word_replacer.replace_in_table(original, corrected.strip())
                     print(f"Paragraph {i}: Replaced successfully!")
                     print(corrected)
         
