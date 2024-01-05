@@ -49,6 +49,8 @@ def upload():
         # Extract all paragraphs from the document
         paragraphs = []
         for paragraph in word_replacer.docx.paragraphs:
+            if paragraph.style.base_style is not None and (paragraph.style.base_style.name == 'Normal' or "normal" in paragraph.style.name.lower()):
+                continue
             if "reference" in paragraph.text.lower() and is_real_reference(paragraph):
                 break
             if paragraph.text!="": paragraphs.append(paragraph.text)
@@ -63,6 +65,8 @@ def upload():
         # Create a list of prompts
         prompts_list = []
         for paragraph in paragraphs:
+            if not paragraph.strip():  # Skip empty
+                continue
             prompt = f"Correct English in the following text: {paragraph}.\nkeep curly brackets keep it in one paragraph do not add space.\n"
             for underlined_text in underlined_text_array:
                 if underlined_text in paragraph:
@@ -86,34 +90,38 @@ def upload():
             
         all_prompts_list = prompts_list + prompts_list_table
         
-        # Define API parameters
-        api_params = {'prompts': all_prompts_list}
+        max_prompts_per_request = 30
         
-        # Send a GET request to the API
-        response = requests.get(api_url, params=api_params)
+        # Split prompts into chunks of max_prompts_per_request
+        prompt_chunks = [all_prompts_list[i:i + max_prompts_per_request] for i in range(0, len(all_prompts_list), max_prompts_per_request)]
         
-        # Check the status code and response content
-        if response.status_code == 200:
-            corrected_paragraphs = response.json()
+        for i, prompts_chunk in enumerate(prompt_chunks, start=1):
+            print(f"Sending request for chunk {i}...")
+            # Define API parameters
+            api_params = {'prompts': prompts_chunk}
             
-            all_text = paragraphs + table_texts
+            # Send a GET request to the API
+            response = requests.get(api_url, params=api_params)
+            
+            # Check the status code and response content
+            if response.status_code == 200:
+                corrected_paragraphs = response.json()
+                
+                all_text = paragraphs + table_texts
 
-            # Replace original paragraphs with corrected paragraphs
-            for i, (original, corrected) in enumerate(zip(all_text, corrected_paragraphs), start=1):
-    
-                word_replacer.replace_in_paragraph(original, corrected)
-                word_replacer.replace_in_table(original, corrected)
-                print(f"Paragraph {i}: Replaced successfully!")
-                print(corrected)
-            # Save the document with replaced paragraphs
-            output_filepath = os.path.join(app.config['UPLOAD_FOLDER'], "document_updated.docx")
-            word_replacer.save(output_filepath)
-            print(f"Saved updated document to: {output_filepath}\n")
-            return  send_from_directory(app.config['UPLOAD_FOLDER'], "document_updated.docx", as_attachment=True)
-        else:
-            print("Failed to retrieve corrections. Status code:", response.status_code)
-            return response.status_code
-            #os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                # Replace original paragraphs with corrected paragraphs
+                for i, (original, corrected) in enumerate(zip(all_text, corrected_paragraphs), start=1):
+                    word_replacer.replace_in_paragraph(original, corrected)
+                    word_replacer.replace_in_table(original, corrected)
+                    print(f"Paragraph {i}: Replaced successfully!")
+                    print(corrected)
+        
+        # Save the document with replaced paragraphs
+        output_filepath = os.path.join(app.config['UPLOAD_FOLDER'], "document_updated.docx")
+        word_replacer.save(output_filepath)
+        print(f"Saved updated document to: {output_filepath}\n")
+        return  send_from_directory(app.config['UPLOAD_FOLDER'], "document_updated.docx", as_attachment=True)
+            
     else: return render_template('upload.html')
 
 if __name__ == '__main__':
