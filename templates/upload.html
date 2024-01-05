@@ -34,9 +34,9 @@
             <input type="file" name="file" id="input1" accept=".doc, .docx"/>
           </div>
         </form>
+        <button class="clear_button"><span>Clear</span><i class="fa fa-trash"></i></button>
       </div>
     </div>
-      <button class="clear_button"><span>Clear</span><i class="fa fa-trash"></i></button>
     <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
     <script>
       var imageUrl = "{{ url_for('static', filename='assets/img/about/1.jpg') }}";
