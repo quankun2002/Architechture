@@ -16,13 +16,14 @@
       <div class="heading">
         <h1>File Upload Preview</h1>
         <p>Upload a file to continue.</p>
+        <p> <span class="preview-description">File Name.extension</span> - <span class="preview-size">File Size</span></p>
       </div>
-
+      
       <div class="preview">
         <div>
            <img src="{{ url_for('static', filename='assets/img/about/1.jpg') }}" alt="" class="preview-image" /> 
         </div>
-        <p> <span class="preview-description">File Name.extension</span> - <span class="preview-size">File Size</span></p>
+        
       </div>
 
       <div class="button_section">
@@ -38,7 +39,7 @@
     </div>
       <button class="clear_button"><span>Clear</span><i class="fa fa-trash"></i></button>
     <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
     <script>
       var imageUrl = "{{ url_for('static', filename='assets/img/about/1.jpg') }}";
       var imageUrl2 = "{{ url_for('static', filename='assets/img/about/2.jpg') }}";

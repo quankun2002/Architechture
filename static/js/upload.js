@@ -20,7 +20,13 @@ document.getElementById('input1').addEventListener('change', function() {
   const fileObject = fileInputElement.files[0];
   const objectURL = URL.createObjectURL(fileObject);
   console.log(objectURL);
+  var file = fileObject; // Get the selected file
 
+  if (file) {
+      convertToHtml(file).then(function(html) {
+          document.querySelector('.preview').innerHTML = html; // Display the HTML
+      });
+  }
   changePreviewOnUpload(
     fileObject.name,
     fileObject.type,
@@ -28,6 +34,24 @@ document.getElementById('input1').addEventListener('change', function() {
     objectURL);
   document.getElementById('uploadForm').submit();
 });
+
+function convertToHtml(file) {
+  return new Promise(function(resolve, reject) {
+      var reader = new FileReader();
+
+      reader.onload = function(event) {
+          var arrayBuffer = event.target.result;
+
+          mammoth.convertToHtml({arrayBuffer: arrayBuffer})
+              .then(function(result) {
+                  resolve(result.value);
+              })
+              .catch(reject);
+      };
+
+      reader.readAsArrayBuffer(file); // Read the file as an array buffer
+  });
+}
 // fileInputElement.addEventListener("change", (e) => {
 //   console.log(fileInputElement.files[0]);
 //   const fileObject = fileInputElement.files[0];
