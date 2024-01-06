@@ -34,27 +34,22 @@
       <p> <span class="preview-description">File Name.extension</span> - <span class="preview-size">File Size</span></p>
     </div>
 
-    <div class="button_section">
-      <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" id="uploadForm">
-        <div class="button_group" onclick="uploadFile()" >
-          <!-- <label for="input1">Choose file &nbsp; <i class="fa fa-upload"></i></label> -->
-          <label for="input1" class="upload_button">Upload file &nbsp; <i
-              class="fa fa-upload"></i></label>
-          <input type="file" name="file" id="input1" accept=".doc, .docx" />
-        </div>
-      </form>
+      <div class="button_section">
+        <form action="{{ url_for('upload') }}" method="post" enctype="multipart/form-data" id="uploadForm" >
+          <div class="button_group">
+            <label for="input1"
+              >Upload file &nbsp; <i class="fa fa-upload"></i
+            ></label>
+            <input type="file" name="file" id="input1" accept=".doc, .docx"/>
+          </div>
+        </form>
+      </div>
     </div>
-  </div>
-  <button class="clear_button"><span>Clear</span><i class="fa fa-trash"></i></button>
-
-  <!-- Load Firebase SDK and custom scripts -->
-  <script src="{{ url_for('static', filename='js/firebase.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/upload.js') }}" type="module"></script>
-
-  <!-- Define image URLs -->
-  <script>
-    var imageUrl = "{{ url_for('static', filename='assets/img/about/1.jpg') }}";
-    var imageUrl2 = "{{ url_for('static', filename='assets/img/about/2.jpg') }}";
+      <button class="clear_button"><span>Clear</span><i class="fa fa-trash"></i></button>
+    <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+    <script>
+      var imageUrl = "{{ url_for('static', filename='assets/img/about/1.jpg') }}";
+      var imageUrl2 = "{{ url_for('static', filename='assets/img/about/2.jpg') }}";
   </script>
 
 </body>
