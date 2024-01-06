@@ -51,3 +51,46 @@ clearButton.addEventListener("click", (e) => {
   clearButton.style.display = "none";
   location.reload();
 });
+
+// Initialize Firebase
+var firebaseConfig = {
+  apiKey: "AIzaSyALDPT2S_RWrvdyUYtrEwDNYSmcGS58QZw",
+  authDomain: "uploadjs-7f8e6.firebaseapp.com",
+  projectId: "uploadjs-7f8e6",
+  storageBucket: "uploadjs-7f8e6.appspot.com",
+  messagingSenderId: "649973015933",
+  appId: "1:649973015933:web:783739943a9ce69f1ad814",
+  measurementId: "G-L9S68T325S"
+  // Your config here
+};
+firebase.initializeApp(firebaseConfig);
+
+// Get a reference to the storage service
+var storage = firebase.storage();
+
+// Create a storage reference from our storage service
+var storageRef = storage.ref();
+
+function uploadFile() {
+  // Get the file from the input element
+  var file = document.getElementById('input1').files[0];
+
+  // Create a reference to the file
+  var fileRef = storageRef.child(file.name);
+
+  // Upload the file
+  var uploadTask = fileRef.put(file);
+
+  uploadTask.on('state_changed', function(snapshot){
+    // Observe state change events such as progress, pause, and resume
+    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+    console.log('Upload is ' + progress + '% done');
+  }, function(error) {
+    // Handle unsuccessful uploads
+    console.log('Upload failed:', error);
+  }, function() {
+    // Handle successful uploads on complete
+    console.log('Upload completed successfully.');
+  });
+}
