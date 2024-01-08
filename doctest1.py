@@ -127,7 +127,7 @@ class WordUnderlineFinder:
         """
         Check if the run is underlined.
         """
-        return run.underline or run.bold
+        return run.underline
     def collect_underlined_text(self, doc):
         """
         Collect underlined text from the document.
