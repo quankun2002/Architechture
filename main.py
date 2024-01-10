@@ -1,8 +1,9 @@
 
 import os
-from flask import Flask, render_template, request, redirect, url_for, send_file, make_response, send_from_directory, send_file
+from flask import Flask, render_template,jsonify, request, redirect, url_for, send_file, make_response, send_from_directory, send_file
 from werkzeug.utils import secure_filename
 import firebase_admin
+import datetime
 from firebase_admin import credentials
 from firebase_admin import storage
 from doctest1 import *
@@ -30,12 +31,36 @@ def login():
 def userDetail():
     return render_template('userDetail.html')
 
+@app.route('/download')
+def download():
+    try:
+        # Get the bucket that the files are stored in
+        bucket = storage.bucket()
+
+        # List all files in the bucket
+        blobs = bucket.list_blobs()
+
+        # Generate a download URL for each file
+        files = []
+        for blob in blobs:
+            files.append({
+                'name': blob.name,
+                'url': blob.generate_signed_url(datetime.timedelta(seconds=300), method='GET')
+            })
+
+        # Render a template with the files
+        return render_template('download.html', files=files)
+    except Exception as e:
+        return str(e)
+    
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
     if request.method == 'POST':
         if 'file' not in request.files:
             return 'No file part in the request.'
+        
         file = request.files['file']
+
         if file.filename == '':
             return 'No selected file.'
         if file:
@@ -46,11 +71,16 @@ def upload():
             bucket = storage.bucket()
             blob = bucket.blob(filename)
             blob.upload_from_filename(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            response = make_response('', 204)
-            return response
-            #os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            # response = make_response('', 204)
 
-                    # Construct the full file path
+            # Generate a download URL for the uploaded file
+            url = blob.generate_signed_url(datetime.timedelta(seconds=300), method='GET')
+            # To change the duration of the link, change from (seconds = 300) to (seconds = 600) or any other number of seconds
+            
+            return redirect(url_for('download', url = url))
+            #os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        
+            # Construct the full file path
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         # Define the API endpoint for code generation
         api_url = "https://polite-horribly-cub.ngrok-free.app/generate_code?max_length=512"
@@ -144,4 +174,5 @@ def upload():
     else: return render_template('upload.html')
 
 if __name__ == '__main__':
+    app.run(debug=True)
     app.run(host='0.0.0.0')

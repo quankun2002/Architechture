@@ -109,7 +109,6 @@ function uploadFile() {
     // Observe state change events such as progress, pause, and resume
     // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
     var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    console.log('Upload is ' + progress + '% done');
   }, function(error) {
     // Handle unsuccessful uploads
     console.log('Upload failed:', error);
@@ -117,4 +116,8 @@ function uploadFile() {
     // Handle successful uploads on complete
     console.log('Upload completed successfully.');
   });
+}
+
+function checkFile(){
+  window.location = "download.html" 
 }

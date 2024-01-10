@@ -36,6 +36,8 @@ function signInGoogle() {
   // Prevent the default form submission behavior
   document.body.appendChild(form);
   form.submit();
+
+  
 }
 
 // This form is for Facebook Authentication//
@@ -63,7 +65,8 @@ fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
   .then((data) => data.json())
   .then((info) => {
     console.log(info);
-
+    document.getElementById("sub").innerHTML += info.sub;
+    console.log(info.sub);
     document.getElementById("name").innerHTML += info.name;
     document.getElementById("image").src = info.picture;
   });
