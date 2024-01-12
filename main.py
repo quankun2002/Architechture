@@ -114,8 +114,6 @@ def upload():
             # Extract all paragraphs from the document
             paragraphs = []
             for paragraph in word_replacer.docx.paragraphs:
-                if paragraph.style.base_style is not None and (paragraph.style.base_style.name == 'Normal' or "normal" in paragraph.style.name.lower()):
-                    continue
                 if "reference" in paragraph.text.lower() and is_real_reference(paragraph):
                     break
                 if paragraph.text!="": paragraphs.append(paragraph.text)
