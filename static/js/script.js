@@ -66,7 +66,7 @@ fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
   .then((info) => {
     console.log(info);
     document.getElementById("sub").innerHTML += info.sub;
-    console.log(info.sub);
+    sessionStorage.setItem("sub", info.sub);
     document.getElementById("name").innerHTML += info.name;
     document.getElementById("image").src = info.picture;
   });
