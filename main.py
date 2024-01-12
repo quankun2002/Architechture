@@ -1,6 +1,6 @@
 
 import os
-from flask import Flask, render_template,jsonify, request, redirect, url_for, send_file, make_response, send_from_directory, send_file, jsonify
+from flask import Flask, render_template,jsonify, request, redirect, url_for, send_file, make_response, send_from_directory, send_file, jsonify,render_template_string
 from werkzeug.utils import secure_filename
 import firebase_admin
 import datetime
@@ -26,7 +26,9 @@ def main():
 @app.route('/login')
 def login():
     return render_template('login.html')
-
+@app.route('/checking')
+def check():
+    return render_template('download.html')
 @app.route('/userDetail')
 def userDetail():
     return render_template('userDetail.html')
@@ -34,7 +36,7 @@ def userDetail():
 @app.route('/download', methods=['POST'])
 def download():
     if request.method == 'POST':
-        data = request.form['url'] 
+        data = request.form['sub'] 
         # Get the bucket that the files are stored in
         bucket = storage.bucket()
 
@@ -44,13 +46,14 @@ def download():
         # Generate a download URL for each file
         files = []
         for blob in blobs:
+            print(blob.name)
             files.append({
                 'name': blob.name,
                 'url': blob.generate_signed_url(datetime.timedelta(seconds=300), method='GET')
             })
 
         # Render a template with the files
-        return render_template('download.html', files=files)
+        return jsonify({"files": files})
 @app.route('/download2', methods=['GET'])
 def download2():
     if request.method == 'GET':

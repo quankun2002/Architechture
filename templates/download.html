@@ -4,13 +4,33 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/download.css') }}">
 </head>
 <body>
-    <!-- {% for file in files %} -->
-    <button onclick="location.href='{{ file.url }}'">Download {{ file.name }}</button><br>
-    <!-- {% endfor %}     -->
-<!-- 
-    {% for file in files %}
-    <a href="{{ file.url }}" download="{{ file.name }}">{{ file.name }}</a><br>
-    {% endfor %}
-     -->
+    <!-- Insert the provided HTML here -->
+
+    <div id="files"></div>
+
+    <script>
+        window.onload = function() {
+            // Retrieve the files data from local storage
+            var files = JSON.parse(localStorage.getItem('files'));
+
+            // Get the div to put the files in
+            var filesDiv = document.getElementById('files');
+
+            // Generate a download button for each file
+            files.forEach(function(file) {
+                var link = document.createElement('a');
+                link.href = file.url;
+                link.download = file.name;
+                link.textContent = file.name;
+
+                var button = document.createElement('button');
+                button.textContent = "Download " + file.name;
+                button.onclick = function() { link.click(); };
+
+                filesDiv.appendChild(button);
+                filesDiv.appendChild(document.createElement('br'));
+            });
+        };
+    </script>
 </body>
 </html>

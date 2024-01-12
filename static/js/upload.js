@@ -124,11 +124,22 @@ var storageRef = storage.ref();
 
 
 function checkFile(){
-  let url = sessionStorage.getItem('url'); 
+  let sub = sessionStorage.getItem('sub');  
   let formData2 = new FormData();
-  formData2.append('url', url);
+  formData2.append('sub', sub);
   fetch('/download', {
     method: 'POST', 
     body: formData2  // Send the sub value to the Flask backend
+  }).then(response => response.json())  // Parse the response body as JSON
+  .then(data => {
+    console.log(data.files);
+    // Save the files data in local storage
+    localStorage.setItem('files', JSON.stringify(data.files));
+  
+    // Redirect to the /checking route
+    window.location.href = '/checking';
   })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
