@@ -1,34 +1,44 @@
-<!-- FILEPATH: c:\Users\USER\Desktop\Software Architechture & Design\login.html -->
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"></link>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" />
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
 
-<body>
-    <form class="login-form">
-        <h1>Login</h1>
-        <div class="bottom-text">
-            <button class="googleSignin" onClick="signInGoogle()">
-                Sign in with Google
-            </button>
-        </div>
 
-        <div class="bottom-text">
-            <a class="btn-home" href="{{ url_for('main') }}">
-                Back to Home
-            </a>
+<div class="container">
+    <div class="body d-md-flex align-items-center justify-content-between">
+        <div class="box-1 mt-md-0 mt-5">
+            <img src="https://images.pexels.com/photos/2033997/pexels-photo-2033997.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+                class="" alt="">
         </div>
-    </form>
-    <script src="{{ url_for('static', filename='js/script.js') }}">
-    </script>
-    
-</body>
-
-</html>
+        <div class=" box-2 d-flex flex-column h-100">
+            <div class="mt-5">
+                <p class="mb-1 h-1">Login Account.</p>
+                <p class="text-muted mb-2">Share your thouhts with the world form today.</p>
+                <div class="d-flex flex-column ">
+                    <p class="text-muted mb-2">Continue with...</p>
+                    <div class="d-flex align-items-center">
+                        <button onClick="signInGoogle()" class="box me-2">
+                            <span class="fab fa-google mb-2"></span>
+                            <p class="mb-0">Google</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-auto">
+                <p class="footer text-muted mb-0 mt-md-0 mt-4">Copyright &copy; Grammar Pro 2023</p>
+            </div>
+        </div>
+        <span class="fas fa-times"></span>
+    </div>
+</div>
+</html> 
