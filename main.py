@@ -54,6 +54,21 @@ def download():
 
         # Render a template with the files
         return jsonify({"files": files})
+    
+@app.route('/deletefire', methods=['POST'])
+def deletefire():
+    if request.method == 'POST':
+        name = request.form['name'] 
+        # Get the bucket that the files are stored in
+        bucket = storage.bucket()
+
+        blob = bucket.blob(name)
+        blob.delete()
+
+       
+
+        # Render a template with the files
+        return jsonify({"status": "success", "message": "File deleted successfully"})
 @app.route('/download2', methods=['GET'])
 def download2():
     if request.method == 'GET':

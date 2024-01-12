@@ -22,15 +22,62 @@
                 link.href = file.url;
                 link.download = file.name;
                 link.textContent = file.name;
-
-                var button = document.createElement('button');
-                button.textContent = "Download " + file.name;
-                button.onclick = function() { link.click(); };
-
-                filesDiv.appendChild(button);
+            
+                var downloadButton = document.createElement('button');
+                downloadButton.textContent = "Download " + file.name;
+                downloadButton.onclick = function() { link.click(); };
+            
+                var deleteButton = document.createElement('button');
+                deleteButton.textContent = "Delete " + file.name;
+                deleteButton.onclick = function() { 
+                    
+                    let sub = sessionStorage.getItem('sub');  
+                    let formData2 = new FormData();
+                    formData2.append('name', file.name);
+                    fetch('/deletefire', {
+                      method: 'POST', 
+                      body: formData2  // Send the sub value to the Flask backend
+                    }).then(response => response.json())
+                .then(data => {
+                    // Check if the delete operation was successful
+                    if (data.status === 'success') {
+                        // Reload the page
+                        checkFile()
+                    } else {
+                        // Handle the error
+                        console.error('Error:', data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+                };
+            
+                filesDiv.appendChild(downloadButton);
+                filesDiv.appendChild(deleteButton);
                 filesDiv.appendChild(document.createElement('br'));
             });
         };
+        function checkFile(){
+            let sub = sessionStorage.getItem('sub');  
+            let formData2 = new FormData();
+            formData2.append('sub', sub);
+            fetch('/download', {
+              method: 'POST', 
+              body: formData2  // Send the sub value to the Flask backend
+            }).then(response => response.json())  // Parse the response body as JSON
+            .then(data => {
+              console.log(data.files);
+              // Save the files data in local storage
+              localStorage.setItem('files', JSON.stringify(data.files));
+            
+              // Redirect to the /checking route
+              window.location.href = '/checking';
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+          }
     </script>
 </body>
 </html>
