@@ -14,26 +14,65 @@ const changePreviewOnUpload = (fileName, fileType, fileSize, previewURL) => {
 
   clearButton.style.display = "inline-flex";
 };
-document.getElementById('input1').addEventListener('change', function() {
+document.getElementById('myForm').addEventListener('submit', function(e) {
+  e.preventDefault(); 
   const fileInputElement = document.getElementById('input1');
   console.log(fileInputElement.files[0]);
   const fileObject = fileInputElement.files[0];
   const objectURL = URL.createObjectURL(fileObject);
   console.log(objectURL);
   var file = fileObject; // Get the selected file
+   // Prevent the default form submission behavior
+
+  let sub = sessionStorage.getItem('sub');  // Get the sub value from session storage
+  let formData = new FormData();
+  formData.append('sub', sub);
+  formData.append('file', fileInputElement.files[0]);
 
   if (file) {
       convertToHtml(file).then(function(html) {
           document.querySelector('.preview').innerHTML = html; // Display the HTML
       });
-  }
+  };
+  fetch('/upload', {
+    method: 'POST', 
+    body: formData  // Send the sub value to the Flask backend
+  }).then(response => {
+    // Extract the URL from the headers of the response
+    let url = response.headers.get('URL');
+    
+    // Save the URL in session storage
+    sessionStorage.setItem('url', url);
+  
+    return response.json();
+  })
+  .then(data => {
+    console.log(data);
+  
+    // After the '/upload' request is completed, send a request to '/download2'
+    return fetch('/download2', {
+      method: 'GET' // Send the sub value to the Flask backend
+    }).then(response => response.blob())
+    .then(blob => {
+      // Create a new object URL for the blob
+      let url = window.URL.createObjectURL(blob);
+    
+      // Create a link and programmatically click it to download the file
+      let a = document.createElement('a');
+      a.href = url;
+      a.download = 'document_updated.docx'; // Set the file name here
+      a.click();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  })
   changePreviewOnUpload(
     fileObject.name,
     fileObject.type,
     fileObject.size,
     objectURL);
-  document.getElementById('uploadForm').submit();
-});
+}); 
 
 function convertToHtml(file) {
   return new Promise(function(resolve, reject) {
@@ -52,19 +91,7 @@ function convertToHtml(file) {
       reader.readAsArrayBuffer(file); // Read the file as an array buffer
   });
 }
-// fileInputElement.addEventListener("change", (e) => {
-//   console.log(fileInputElement.files[0]);
-//   const fileObject = fileInputElement.files[0];
-//   const objectURL = URL.createObjectURL(fileObject);
-//   console.log(objectURL);
 
-//   changePreviewOnUpload(
-//     fileObject.name,
-//     fileObject.type,
-//     fileObject.size,
-//     objectURL
-//   );
-// });
 
 clearButton.addEventListener("click", (e) => {
   imagePreview.setAttribute("src", imageUrl);
@@ -75,3 +102,33 @@ clearButton.addEventListener("click", (e) => {
   clearButton.style.display = "none";
   location.reload();
 });
+
+// Initialize Firebase
+var firebaseConfig = {
+  apiKey: "AIzaSyALDPT2S_RWrvdyUYtrEwDNYSmcGS58QZw",
+  authDomain: "uploadjs-7f8e6.firebaseapp.com",
+  projectId: "uploadjs-7f8e6",
+  storageBucket: "uploadjs-7f8e6.appspot.com",
+  messagingSenderId: "649973015933",
+  appId: "1:649973015933:web:783739943a9ce69f1ad814",
+  measurementId: "G-L9S68T325S"
+  // Your config here
+};
+firebase.initializeApp(firebaseConfig);
+
+// Get a reference to the storage service
+var storage = firebase.storage();
+
+// Create a storage reference from our storage service
+var storageRef = storage.ref();
+
+
+function checkFile(){
+  let url = sessionStorage.getItem('url'); 
+  let formData2 = new FormData();
+  formData2.append('url', url);
+  fetch('/download', {
+    method: 'POST', 
+    body: formData2  // Send the sub value to the Flask backend
+  })
+}
