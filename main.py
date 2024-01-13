@@ -100,11 +100,7 @@ def upload():
             # Define the API endpoint for code generation
             api_url = "https://polite-horribly-cub.ngrok-free.app/generate_code?max_length=512"
 
-            #for i, file in enumerate(WordReplacer.docx_list(filedir), start=1):
-                #print(f"{i} Processing file: {file}")
 
-                # Load the Word document
-                #word_replacer = WordReplacer(filedir2)
             # Load the Word document
             word_replacer = WordReplacer(file_path)
             
