@@ -150,11 +150,11 @@ def upload():
                 
             all_prompts_list = prompts_list + prompts_list_table
             
-            max_prompts_per_request = 40
-            
+            max_prompts_per_request = 60
+            all_text = paragraphs + table_texts
             # Split prompts into chunks of max_prompts_per_request
             prompt_chunks = [all_prompts_list[i:i + max_prompts_per_request] for i in range(0, len(all_prompts_list), max_prompts_per_request)]
-            
+            corrected_paragraphs = []
             for i, prompts_chunk in enumerate(prompt_chunks, start=1):
                 print(f"Sending request for chunk {i}...")
                 # Define API parameters
@@ -165,16 +165,14 @@ def upload():
                 print (response.status_code)
                 # Check the status code and response content
                 if response.status_code == 200:
-                    corrected_paragraphs = response.json()
-                    
-                    all_text = paragraphs + table_texts
+                    corrected_paragraphs.extend(response.json())  # append the response to the list
 
-                    # Replace original paragraphs with corrected paragraphs
-                    for i, (original, corrected) in enumerate(zip(all_text, corrected_paragraphs), start=1):
-                        word_replacer.replace_in_paragraph(original, corrected.strip())
-                        word_replacer.replace_in_table(original, corrected.strip())
-                        print(f"Paragraph {i}: Replaced successfully!")
-                        print(corrected.strip())
+            # Replace original paragraphs with corrected paragraphs
+            for i, (original, corrected) in enumerate(zip(all_text, corrected_paragraphs), start=1):
+                word_replacer.replace_in_paragraph(original, corrected.strip())
+                word_replacer.replace_in_table(original, corrected.strip())
+                print(f"Paragraph {i}: Replaced successfully!")        
+                        
             
             # Save the document with replaced paragraphs
             output_filepath = os.path.join(app.config['UPLOAD_FOLDER'], "document_updated.docx")
