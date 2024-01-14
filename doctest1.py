@@ -78,22 +78,7 @@ class WordReplacer:
             for footer_paragraph in section.footer.paragraphs:
                 if footer_paragraph.text == paragraph:
                     Execute(footer_paragraph).p_replace(0, footer_paragraph.text, replace_dict)
-                    print(replace_dict.strip())
-            for header_table in section.header.tables:
-                for row in header_table.rows:
-                    for cell in row.cells:
-                        for cell_paragraph in cell.paragraphs:
-                            if cell_paragraph.text == paragraph:
-                                Execute(cell_paragraph).p_replace(0, cell_paragraph.text, replace_word)
-                                print(replace_dict.strip())
-
-            for footer_table in section.footer.tables:
-                for row in footer_table.rows:
-                    for cell in row.cells:
-                        for cell_paragraph in cell.paragraphs:
-                            if cell_paragraph.text == paragraph:
-                                Execute(cell_paragraph).p_replace(0, cell_paragraph.text, replace_word)
-                                print(replace_dict.strip())          
+                    print(replace_dict.strip())        
 
             
                                 
