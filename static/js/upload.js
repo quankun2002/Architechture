@@ -1,3 +1,5 @@
+import { initializeApp } from 'firebase/app';
+
 const fileInputElement = document.querySelector("input1");
 const clearButton = document.querySelector(".clear_button");
 const imagePreview = document.querySelector(".preview-image");

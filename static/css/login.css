@@ -76,14 +76,14 @@
     font-size: 35px;
 }
 
-.box:active,
+/* .box:active,
 .box:visited {
     border: 2px solid #ee82ee;
 }
 
 .box:hover {
     border: 2px solid #ee82ee;
-}
+} */
 
 .btn.btn-primary {
     background-color: transparent;
