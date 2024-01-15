@@ -175,7 +175,7 @@ def upload():
                 print(corrected.strip())        
             
             # Save the document with replaced paragraphs
-            output_filepath = os.path.join(app.config['UPLOAD_F  OLDER'], "document_updated.docx")
+            output_filepath = os.path.join(app.config['UPLOAD_FOLDER'], "document_updated.docx")
             word_replacer.save(output_filepath)
             url = blob.generate_signed_url(datetime.timedelta(seconds=300), method='GET')
             print(f"Saved updated document to: {output_filepath}\n")
