@@ -74,6 +74,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
       formData.append("sub", sub);
       formData.append("file", fileInputElement.files[0]);
 
+
+      const fileTypes = fileObject.name.split(".").pop().toLowerCase();
+      if(fileTypes !== "docx" && fileTypes !== "doc"){
+        alert("Please upload a docx file");
+        return false;
+      }
+      
       if (file) {
         convertToHtml(file).then(function (html) {
           document.querySelector(".preview").innerHTML = html; // Display the HTML
