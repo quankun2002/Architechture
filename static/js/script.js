@@ -17,8 +17,7 @@ function signInGoogle() {
     // Set form parameters
     client_id:
       "33229960992-elv2jgnpqp12ohiolkiupd9fvpd2knt5.apps.googleusercontent.com", // Replace this value with the Client ID from the API Console
-    redirect_uri:
-      "http://127.0.0.1:5000/userDetail", // Replace this value with the redirect URI from the API Console
+    redirect_uri: "http://127.0.0.1:5000/userDetail", // Replace this value with the redirect URI from the API Console
     response_type: "token",
     scope: "https://www.googleapis.com/auth/userinfo.profile",
     include_granted_scopes: "true",
@@ -36,8 +35,6 @@ function signInGoogle() {
   // Prevent the default form submission behavior
   document.body.appendChild(form);
   form.submit();
-
-  
 }
 
 // This form is for Facebook Authentication//
@@ -107,29 +104,67 @@ function logOut() {
     let info = JSON.parse(storedCredentials);
 
     // Google's OAuth 2.0 endpoint for revoking access tokens.
-    var revokeTokenEndpoint = 'https://oauth2.googleapis.com/revoke';
+    var revokeTokenEndpoint = "https://oauth2.googleapis.com/revoke";
 
     // Create a FormData object to send the token in the request body
     var formData = new FormData();
-    formData.append('token', info["access_token"]);
+    formData.append("token", info["access_token"]);
 
     // Make a POST request to revoke the token
     fetch(revokeTokenEndpoint, {
-      method: 'POST',
-      body: formData
+      method: "POST",
+      body: formData,
     })
-    .then(response => {
-      // Clear credentials after revoking the token, regardless of the response
-      localStorage.removeItem("authInfo");
+      .then((response) => {
+        // Clear credentials after revoking the token, regardless of the response
+        localStorage.removeItem("authInfo");
 
-      // Redirect to the login page
-      window.location.href = logout;
-    })
-    .catch(error => {
-      console.error('Error revoking token:', error);
-    });
+        // Redirect to the login page
+        window.location.href = logout;
+      })
+      .catch((error) => {
+        console.error("Error revoking token:", error);
+      });
   } else {
     // Handle the case where no credentials are stored
     console.log("No user credentials found");
   }
 }
+
+document.addEventListener("DOMContentLoaded", function (event) {
+  const showNavbar = (toggleId, navId, bodyId, headerId) => {
+    const toggle = document.getElementById(toggleId),
+      nav = document.getElementById(navId),
+      bodypd = document.getElementById(bodyId),
+      headerpd = document.getElementById(headerId);
+
+    // Validate that all variables exist
+    if (toggle && nav && bodypd && headerpd) {
+      toggle.addEventListener("click", () => {
+        // show navbar
+        nav.classList.toggle("show");
+        // change icon
+        toggle.classList.toggle("bx-x");
+        // add padding to body
+        bodypd.classList.toggle("body-pd");
+        // add padding to header
+        headerpd.classList.toggle("body-pd");
+      });
+    }
+  };
+
+  showNavbar("header-toggle", "nav-bar", "body-pd", "header");
+
+  /*===== LINK ACTIVE =====*/
+  const linkColor = document.querySelectorAll(".nav_link");
+
+  function colorLink() {
+    if (linkColor) {
+      linkColor.forEach((l) => l.classList.remove("active"));
+      this.classList.add("active");
+    }
+  }
+  linkColor.forEach((l) => l.addEventListener("click", colorLink));
+
+  // Your code to run since DOM is loaded and ready
+});
