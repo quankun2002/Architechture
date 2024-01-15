@@ -127,7 +127,7 @@ def upload():
             for paragraph in paragraphs:
                 if not paragraph.strip():  # Skip empty
                     continue
-                prompt = f"Correct English in the following text: '{paragraph}.' \n Corrected version must follows these requirement:\n 1. keep it in one paragraph\n2. do not change curly brackets\n3.do not add space after text\n4.do not add anything after colon\n5. return only the text no explain needed\n"
+                prompt = f"Correct English in the following text \"{paragraph}.\" \n Corrected version must follows these requirement:\n 1. keep it in one paragraph\n2. do not change curly brackets\n3.do not add space after text\n4.do not add anything after colon\n5. return only the text no explain needed\n"
                 for underlined_text in underlined_text_array:
                     if underlined_text in paragraph:
                         prompt += f"Don't change: {underlined_text}\n"
@@ -150,7 +150,7 @@ def upload():
                 
             all_prompts_list = prompts_list + prompts_list_table
             
-            max_prompts_per_request = 60
+            max_prompts_per_request = 40
             all_text = paragraphs + table_texts
             # Split prompts into chunks of max_prompts_per_request
             prompt_chunks = [all_prompts_list[i:i + max_prompts_per_request] for i in range(0, len(all_prompts_list), max_prompts_per_request)]
@@ -172,7 +172,7 @@ def upload():
                 word_replacer.replace_in_paragraph(original, corrected.strip())
                 word_replacer.replace_in_table(original, corrected.strip())
                 print(f"Paragraph {i}: Replaced successfully!")        
-                        
+                print(corrected.strip())        
             
             # Save the document with replaced paragraphs
             output_filepath = os.path.join(app.config['UPLOAD_FOLDER'], "document_updated.docx")

@@ -97,7 +97,7 @@ class WordReplacer:
                         for cell_paragraph in cell.paragraphs:
                             if cell_paragraph.text == paragraph:
                                 Execute(cell_paragraph).p_replace(0, cell_paragraph.text, replace_word)
-                                print(replace_word.strip())
+                                
 
             for footer_table in section.footer.tables:
                 for row in footer_table.rows:
@@ -105,7 +105,7 @@ class WordReplacer:
                         for cell_paragraph in cell.paragraphs:
                             if cell_paragraph.text == paragraph:
                                 Execute(cell_paragraph).p_replace(0, cell_paragraph.text, replace_word)
-                                print(replace_word.strip())   
+                                 
 
     def save(self, filepath:str):
         '''
