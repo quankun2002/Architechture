@@ -5,7 +5,6 @@
 </head>
 <body>
     <!-- Insert the provided HTML here -->
-
     <div id="files"></div>
 
     <script>
@@ -25,10 +24,12 @@
             
                 var downloadButton = document.createElement('button');
                 downloadButton.textContent = "Download " + file.name;
+                downloadButton.classList.add('download', 'btn-primary');
                 downloadButton.onclick = function() { link.click(); };
             
                 var deleteButton = document.createElement('button');
                 deleteButton.textContent = "Delete " + file.name;
+                deleteButton.classList.add('delete', 'btn-danger');
                 deleteButton.onclick = function() { 
                     
                     let sub = sessionStorage.getItem('sub');  

@@ -22,13 +22,18 @@ document.getElementById('myForm').addEventListener('submit', function(e) {
   const objectURL = URL.createObjectURL(fileObject);
   console.log(objectURL);
   var file = fileObject; // Get the selected file
-   // Prevent the default form submission behavior
 
   let sub = sessionStorage.getItem('sub');  // Get the sub value from session storage
   let formData = new FormData();
   formData.append('sub', sub);
   formData.append('file', fileInputElement.files[0]);
 
+  const fileTypes = fileObject.name.split(".").pop().toLowerCase();
+  if(fileTypes !== "docx" && fileTypes !== "doc"){
+    alert("Please upload a docx file");
+    return false;
+  }
+  
   if (file) {
       convertToHtml(file).then(function(html) {
           document.querySelector('.preview').innerHTML = html; // Display the HTML

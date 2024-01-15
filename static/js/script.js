@@ -36,10 +36,7 @@ function signInGoogle() {
   // Prevent the default form submission behavior
   document.body.appendChild(form);
   form.submit();
-
-  
 }
-
 // This form is for Facebook Authentication//
 // This is called with the results from from FB.getLoginStatus().
 let params = {};
