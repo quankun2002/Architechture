@@ -111,7 +111,7 @@ def upload():
             # Extract all paragraphs from the document
             paragraphs = []
             for paragraph in word_replacer.docx.paragraphs:
-                if is_real_reference(paragraph)==False:
+                if paragraph.text!="" and is_real_reference(paragraph)==True:
                     print(paragraph.text)
                     break
                 if paragraph.text!="": paragraphs.append(paragraph.text)
