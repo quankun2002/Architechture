@@ -66,30 +66,21 @@ class WordReplacer:
             #     print("This paragraph contains endnotes:")
             if para.text == paragraph:
                 Execute(para).p_replace(idx, paragraph, replace_dict)
+                print(replace_dict.strip())
                 break
 
         for section in self.docx.sections:
             for header_paragraph in section.header.paragraphs:
                 if header_paragraph.text == paragraph:
                     Execute(header_paragraph).p_replace(0, header_paragraph.text, replace_dict)
+                    print(replace_dict.strip())
 
             for footer_paragraph in section.footer.paragraphs:
                 if footer_paragraph.text == paragraph:
                     Execute(footer_paragraph).p_replace(0, footer_paragraph.text, replace_dict)
+                    print(replace_dict.strip())        
 
-            for header_table in section.header.tables:
-                for row in header_table.rows:
-                    for cell in row.cells:
-                        for cell_paragraph in cell.paragraphs:
-                            if cell_paragraph.text == paragraph:
-                                Execute(cell_paragraph).p_replace(0, cell_paragraph.text, replace_dict)
-
-            for footer_table in section.footer.tables:
-                for row in footer_table.rows:
-                    for cell in row.cells:
-                        for cell_paragraph in cell.paragraphs:
-                            if cell_paragraph.text == paragraph:
-                                Execute(cell_paragraph).p_replace(0, cell_paragraph.text, replace_dict)
+            
                                 
     def replace_in_table(self, paragraph, replace_word):
         for table in self.docx.tables:
@@ -98,6 +89,23 @@ class WordReplacer:
                     for cell_paragraph in cell.paragraphs:
                         if cell_paragraph.text == paragraph:
                             Execute(cell_paragraph).p_replace(0, cell_paragraph.text, replace_word)
+                            print(replace_word.strip())
+        for section in self.docx.sections:
+            for header_table in section.header.tables:
+                for row in header_table.rows:
+                    for cell in row.cells:
+                        for cell_paragraph in cell.paragraphs:
+                            if cell_paragraph.text == paragraph:
+                                Execute(cell_paragraph).p_replace(0, cell_paragraph.text, replace_word)
+                                
+
+            for footer_table in section.footer.tables:
+                for row in footer_table.rows:
+                    for cell in row.cells:
+                        for cell_paragraph in cell.paragraphs:
+                            if cell_paragraph.text == paragraph:
+                                Execute(cell_paragraph).p_replace(0, cell_paragraph.text, replace_word)
+                                 
 
     def save(self, filepath:str):
         '''
@@ -159,103 +167,3 @@ def is_real_reference(ref_paragraph):
             return True
             
     return False
-
-def main():
-    '''
-    To use: Modify the values in replace dict and filedir
-    replace_dict ：key:to be replaced, value:new content
-    filedir ：Directory where docx files are stored. Subdirectories are supported
-    '''
-    # Quan dir
-    # filedir = r"C:\Users\quank\Documents\rmit\engineering science\architndesign\word_file"
-    # Long dir
-    # filedir = "/Users/phamlong/Desktop/RMIT/Architecture and Design/Sample Doc"
-    
-    # Directory where docx files are stored. Subdirectories are supported
-    filedir = "/Users/phamlong/Desktop/RMIT/Architecture and Design/Sample Doc"
-
-    # Define the API endpoint for code generation
-    #api_url = "https://3c92-103-253-89-37.ngrok-free.app/generate_code?max_length=1028"
-    api_url = "https://trusting-inherently-feline.ngrok-free.app/generate_code?max_length=1028"
-
-    for i, file in enumerate(WordReplacer.docx_list(filedir), start=1):
-        print(f"{i} Processing file: {file}")
-
-        # Load the Word document
-        word_replacer = WordReplacer(file)
-        
-        underline_finder = WordUnderlineFinder()
-        underlined_text_array = underline_finder.collect_underlined_text(word_replacer.docx)
-
-        # Extract all paragraphs from the document
-        paragraphs = []
-        for paragraph in word_replacer.docx.paragraphs:
-            if "reference" in paragraph.text.lower() and is_real_reference(paragraph):
-                break
-            paragraphs.append(paragraph.text)
-        
-        table_texts = []
-        for table in word_replacer.docx.tables:
-            for row in table.rows:
-                row_text = [cell.text for cell in row.cells]
-                for text in row_text:
-                    table_texts.append(text)
-    
-        # Create a list of prompts
-        prompts_list = []
-        for paragraph in paragraphs:
-            prompt = f"Correct English in the following text keep curly brackets keep it in one paragraph: {paragraph}\n"
-            for underlined_text in underlined_text_array:
-                if underlined_text in paragraph:
-                    prompt += f"Don't change: {underlined_text}\n"
-            prompt += "Here is the corrected version: "
-            prompts_list.append(prompt)
-
-        prompts_list_table = []
-        filtered_table_texts = []
-
-        for table_text in table_texts:
-            ignore_this_prompt = any(underlined_text in table_text for underlined_text in underlined_text_array)
-
-            if not ignore_this_prompt:
-                table_prompt = f"Correct English in the following phrase keep it a phrase: {table_text}\nHere is the corrected version: "
-                prompts_list_table.append(table_prompt)
-                filtered_table_texts.append(table_text)
-
-        # Update the original table_texts list
-        table_texts = filtered_table_texts
-            
-        # prompts_list_table = [f"Correct English in the following phrase keep it a phrase: {table_text}\nHere is the corrected version: " for table_text in table_texts]
-        
-        all_prompts_list = prompts_list + prompts_list_table
-        
-        # Define API parameters
-        api_params = {'prompts': all_prompts_list}
-        
-        # Send a GET request to the API
-        response = requests.get(api_url, params=api_params)
-        
-        # Check the status code and response content
-        if response.status_code == 200:
-            corrected_paragraphs = response.json()
-            
-            all_text = paragraphs + table_texts
-
-            # Replace original paragraphs with corrected paragraphs
-            for i, (original, corrected) in enumerate(zip(all_text, corrected_paragraphs), start=1):
-                word_replacer.replace_in_paragraph(original, corrected)
-                word_replacer.replace_in_table(original, corrected)
-                print(f"Paragraph {i}: Replaced successfully!")
-                
-            # Save the document with replaced paragraphs
-            output_filepath = f"document_updated_{i}.docx"
-            word_replacer.save(output_filepath)
-            print(f"Saved updated document to: {output_filepath}\n")
-        else:
-            print("Failed to retrieve corrections. Status code:", response.status_code)
-
-
-
-if __name__ == "__main__":
-    main()
-    print("All complete!")
