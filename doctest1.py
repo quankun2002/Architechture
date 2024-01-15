@@ -162,8 +162,7 @@ def is_real_reference(ref_paragraph):
     """
     Check if "reference" is in real (non-bold and non-italic) text.
     """
-    for run in ref_paragraph.runs:
-        if "reference" in ref_paragraph.text.lower() and (run.bold or run.italic):
-            return True
+    if ref_paragraph.text.lower() == "reference" or ref_paragraph.text.lower() == "references":
+        return True
             
     return False
