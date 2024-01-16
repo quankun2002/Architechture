@@ -1,6 +1,6 @@
 
 import os
-from flask import Flask, render_template,jsonify, request, redirect, url_for, send_file, make_response, send_from_directory, send_file, jsonify,render_template_string
+from flask import Flask, render_template,jsonify, request, redirect, url_for, send_file, make_response, send_from_directory, send_file, jsonify,render_template_string, session
 from werkzeug.utils import secure_filename
 import firebase_admin
 import datetime
@@ -16,10 +16,9 @@ firebase_admin.initialize_app(cred, {
 })
 
 app = Flask(__name__)
-
 app = Flask(__name__, template_folder='templates')
 app.config['UPLOAD_FOLDER'] = r'temp'  # replace with your upload directory
-
+app.secret_key = os.environ.get('SECRET_KEY', 'default secret key')
 @app.route('/')
 def main():
    return render_template('index.html')
@@ -73,6 +72,8 @@ def deletefire():
 @app.route('/download2', methods=['GET'])
 def download2():
     if request.method == 'GET':
+        filenameorigin = session.get('filename')
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filenameorigin))
         output_filepath = os.path.join(app.config['UPLOAD_FOLDER'], "document_updated.docx")
         return send_file(output_filepath, as_attachment=True)
     
@@ -89,6 +90,7 @@ def upload():
             return 'No selected file.'
         if file:
             filename = secure_filename(file.filename)
+            session['filename'] = filename
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
             # Upload file to Firebase Storage
@@ -189,7 +191,7 @@ def upload():
                 return jsonify({"url": url})
             else:
                 return "File not found or not accessible", 404
-            #os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
         
             
     else: return render_template('upload.html')
