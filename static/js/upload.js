@@ -56,11 +56,12 @@ const changePreviewOnUpload = (fileName, fileType, fileSize, previewURL) => {
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const formElement = document.querySelector("#myForm");
-
+  const loadingScreen = document.querySelector("#loadingScreen");
   // Check if the formElement exists before adding an event listener
   if (formElement) {
     formElement.addEventListener("submit", (event) => {
       event.preventDefault();
+      loadingScreen.style.display = "block"; // Show the loading screen
       const fileInputElement = document.getElementById("input1");
       console.log(fileInputElement.files[0]);
       const fileObject = fileInputElement.files[0];
@@ -116,6 +117,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
               a.href = url;
               a.download = "document_updated.docx"; // Set the file name here
               a.click();
+              loadingScreen.style.display = "none"; // Hide the loading screen
             })
             .catch((error) => {
               console.error("Error:", error);
