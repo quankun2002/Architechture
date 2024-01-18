@@ -33,6 +33,10 @@ def check():
 def userDetail():
     return render_template('userDetail.html')
 
+@app.route('/instruction')
+def instruction():
+    return render_template('/instruction.html')
+
 @app.route('/download', methods=['POST'])
 def download():
     if request.method == 'POST':

@@ -193,3 +193,7 @@ h1 {
     justify-content: center;
     margin-top: 20px;
 }
+
+#sub {
+    display: none;
+}

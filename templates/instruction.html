@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/instruction.css') }}" />
+    <title>Grammar Pro!</title>
+</head>
+<body>
+    <div>
+        <h2>Instructions</h2>
+        <p>
+            Step 1: (if you are not the writer or do not possess the citation) click “export to endnote” then “export travelling library” in endnote section. <br/>
+            Step 2: Click “convert citations and bibliography” then “Convert to unformatted citations”. <br/>
+            Step 3: submit the file to the website and download the updated file. <br/>
+            Step 4: Open the updated file and click “convert citations and bibliography” in endnote section. <br/>
+
+            - Skip: Our program can attempt to skip a sentence in a paragraph of a cell in a table when you put them in underline. <br/>
+
+            - Stop at reference: if you do not write your reference using endnote our program will stop scanning and fixing when it meets the standalone word “reference” or “references”, it only works if those word are alone and not within a normal paragraph. <br/>
+            Ex: This paragraph with the word reference will be scanned and fixed. <br/>
+                Reference <br/>
+                This paragraph will not be scanned and fixed since it is below a standalone word reference.
+        </p>
+    </div>
+</body>
+</html>

@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 // Create a storage reference from our storage service
 const fileInputElement = document.querySelector("input1");
-const clearButton = document.querySelector(".clear_button");
+const clearButton = document.querySelector(".clear-button");
 const imagePreview = document.querySelector(".preview-image");
 const previewDescription = document.querySelector(".preview-description");
 const previewSize = document.querySelector(".preview-size");
