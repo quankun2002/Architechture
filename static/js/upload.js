@@ -155,7 +155,7 @@ function convertToHtml(file) {
 }
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  const clearButton = document.querySelector(".clear_button"); // Select the button
+  const clearButton = document.querySelector(".clear-button"); // Select the button
 
   // Check if the clearButton exists before adding an event listener
   if (clearButton) {
