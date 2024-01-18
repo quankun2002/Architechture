@@ -32,6 +32,9 @@ def check():
 @app.route('/userDetail')
 def userDetail():
     return render_template('userDetail.html')
+@app.route('/instruction')
+def instruction():
+    return render_template('/instruction.html')
 
 @app.route('/download', methods=['POST'])
 def download():

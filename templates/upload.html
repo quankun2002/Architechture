@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grammar Pro!</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/userDetail.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/upload.css') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
@@ -38,14 +40,10 @@
             <i class='bx bx-user nav_icon'></i>
             <span class="nav_name">Upload</span> 
           </a> 
-          <a href="#" class="nav_link"> 
+          <a href="{{ url_for('instruction') }}" class="nav_link"> 
             <i class='bx bx-bookmark nav_icon'></i> 
-            <span class="nav_name">Bookmark</span> 
+            <span class="nav_name">Instruction</span> 
           </a> 
-          <a href="#" class="nav_link"> 
-            <i class='bx bx-folder nav_icon'></i> 
-            <span class="nav_name">Files</span> 
-          </a>  
         </div>
       </div> 
       <a href="{{ url_for('login') }}" class="nav_link"> 
@@ -65,18 +63,19 @@
       <div>
         <img src="{{ url_for('static', filename='assets/img/about/1.jpg') }}" alt="" class="preview-image" />
       </div>
-      <p> <span class="preview-description">File Name.extension</span> - <span class="preview-size">File Size</span></p>
     </div>
 
     <div class="button_section">
       <form id="myForm" enctype="multipart/form-data">
-        <label for="input1">Upload file &nbsp; <i class="fa fa-upload"></i></label>
+        <label for="input1" class="upload">Upload file &nbsp; 
+          <i class="fa fa-upload"></i>
+        </label>
         <input type="file" name="file" id="input1" accept=".doc, .docx" />
         <input type="submit" value="Submit">
       </form>
-      <!-- <a href = "{{ url_for('download') }}">Check Upload Files</a> -->
-      <button onclick="checkFile()">Check Upload Files</button>
-      <button class="clear_button"><span>Clear</span><i class="fa fa-trash"></i></button>
+
+      <button class="check-button" onclick="checkFile()">Check Upload Files</button>
+      <button class="clear-button"><span>Clear </span><i class="fa fa-trash"></i></button>
     </div>
   </div>
 
