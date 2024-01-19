@@ -67,11 +67,9 @@ def deletefire():
 
         blob = bucket.blob(name)
         blob.delete()
-
-       
-
         # Render a template with the files
         return jsonify({"status": "success", "message": "File deleted successfully"})
+    
 @app.route('/download2', methods=['GET'])
 def download2():
     if request.method == 'GET':
