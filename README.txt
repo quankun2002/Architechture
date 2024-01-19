@@ -11,4 +11,6 @@ https://rmiteduau-my.sharepoint.com/:v:/g/personal/s3877457_rmit_edu_vn/EW4EJyU9
 link github
 https://github.com/quankun2002/Architechture
 Please read word file for guide and notes
+Please make sure you have all the library in requirements.txt before running
+If bugs happen because of app.run(host='0.0.0.0') please change to app.run() or app.run(debug=True)
 Thank you for the course
